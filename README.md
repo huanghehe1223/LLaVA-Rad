@@ -64,7 +64,7 @@ Follow these steps to set up LLaVA-Rad:
 
 When starting from scratch, the following checkpoints are needed:
 - A pre-trained LM checkpoint, e.g., [lmsys/vicuna-7b-v1.5](https://huggingface.co/lmsys/vicuna-7b-v1.5)
-- By default, we use a customized domain-specific ViT, BiomedCLIP-CXR. See [README.md](./llava/model/multimodal_encoder/open_clip_encoder/README.md) for details.
+- By default, we use Rad-DINO as the vision encoder. You need the local DINOv2 repo (default: `dev/dinov2`) and a compatible Rad-DINO checkpoint (default: `dev/backbone_compatible.safetensors`).
 
 ### 0. Preparation
 Before running the commands below, you need to have the data, image folder, and the above checkpoints ready. 
@@ -79,7 +79,7 @@ You need to download the [MIMIC-CXR-JPG images from PhysioNet](https://physionet
 
 **0.3 Model weights**
 
-You can find the pretrained model weights for BiomedCLIP-CXR and LLaVA-Rad at https://huggingface.co/microsoft/llava-rad.
+You can find pretrained model weights at https://huggingface.co/microsoft/llava-rad and Rad-DINO backbone files at https://huggingface.co/microsoft/rad-dino.
 
 
 **Notes before proceeding:** 

@@ -9,9 +9,9 @@ model_base=lmsys/vicuna-7b-v1.5
 output_dir="${1:-./checkpoints}"
 
 # PROJECTOR="/PATH_TO/mm_projector.bin" # generated using pretrain.sh
-vision_tower="biomedclip_cxr_518"
-vision_tower_config="llava/model/multimodal_encoder/open_clip_encoder/model_configs/biomedclip_cxr_518.json"
-vision_tower_checkpoint="biomedclipcxr_518_checkpoint.pt"
+vision_tower="rad-dino"
+vision_tower_config="dev/dinov2"
+vision_tower_checkpoint="dev/backbone_compatible.safetensors"
 ################## VICUNA ##################
 
 

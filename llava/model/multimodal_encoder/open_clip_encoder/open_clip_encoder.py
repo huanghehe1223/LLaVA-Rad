@@ -91,6 +91,7 @@ class OpenCLIPVisionTower(torch.nn.Module):
 
         self.vision_tower = VisionTower(model.visual.trunk)
         self.vision_tower.requires_grad_(False)
+        print("open-clip loaded success!")
 
         self.is_loaded = True
 

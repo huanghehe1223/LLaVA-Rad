@@ -54,7 +54,7 @@ class ModelArguments:
     version: Optional[str] = field(default="v0")
     freeze_backbone: bool = field(default=False)
     tune_mm_mlp_adapter: bool = field(default=False)
-    vision_tower: Optional[str] = field(default=None)
+    vision_tower: Optional[str] = field(default="rad-dino")
     vision_tower_config: Optional[str] = field(default=None)
     vision_tower_checkpoint: Optional[str] = field(default=None)
     mm_vision_select_layer: Optional[int] = field(default=-1)   # default to the last layer

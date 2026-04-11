@@ -29,3 +29,6 @@ ckpts*
 
 .ipynb_checkpoints
 *.ipynb
+
+# dev
+dev
