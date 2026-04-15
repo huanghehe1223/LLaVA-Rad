@@ -89,11 +89,12 @@ def flash_attn_fn(query, key, value, n_heads, past_key_value=None, softmax_scale
     if key_padding_mask is None:
         key_padding_mask = torch.ones_like(key[:, :, 0], dtype=torch.bool)
     query_padding_mask = key_padding_mask[:, -query.size(1):]
-    (query_unpad, indices_q, cu_seqlens_q, max_seqlen_q) = bert_padding.unpad_input(query, query_padding_mask)
+    # flash_attn's unpad_input returns 4 values in older versions and 5 in newer versions.
+    (query_unpad, indices_q, cu_seqlens_q, max_seqlen_q, *_) = bert_padding.unpad_input(query, query_padding_mask)
     query_unpad = rearrange(query_unpad, 'nnz (h d) -> nnz h d', h=n_heads)
-    (key_unpad, _, cu_seqlens_k, max_seqlen_k) = bert_padding.unpad_input(key, key_padding_mask)
+    (key_unpad, _, cu_seqlens_k, max_seqlen_k, *_) = bert_padding.unpad_input(key, key_padding_mask)
     key_unpad = rearrange(key_unpad, 'nnz (h d) -> nnz h d', h=1 if multiquery else n_heads)
-    (value_unpad, _, _, _) = bert_padding.unpad_input(value, key_padding_mask)
+    (value_unpad, _, _, _, *_) = bert_padding.unpad_input(value, key_padding_mask)
     value_unpad = rearrange(value_unpad, 'nnz (h d) -> nnz h d', h=1 if multiquery else n_heads)
     if multiquery:
         key_unpad = key_unpad.expand(key_unpad.size(0), n_heads, key_unpad.size(-1))

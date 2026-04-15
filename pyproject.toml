@@ -13,6 +13,8 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
 ]
 dependencies = [
+    "rad-dino",
+    "xformers==0.0.28",
     "einops",
     "fastapi",
     "gradio==3.35.2",
@@ -21,8 +23,6 @@ dependencies = [
     "requests",
     "sentencepiece",
     "tokenizers>=0.12.1",
-    "torch==2.4.1",
-    "torchvision==0.19.1",
     "uvicorn",
     "wandb",
     "shortuuid",
