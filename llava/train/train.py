@@ -933,6 +933,7 @@ def train():
 
     if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
         trainer.train(resume_from_checkpoint=True)
+        print("resume training from the last checkpoint.")
     else:
         trainer.train()
     trainer.save_state()

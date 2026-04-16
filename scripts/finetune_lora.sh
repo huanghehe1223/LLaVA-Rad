@@ -2,23 +2,25 @@
 
 # Set the following variables correspondingly to run this script:
 
+version="try-1"
+
 ################## VICUNA ##################
 PROMPT_VERSION=v1
 
-model_base=lmsys/vicuna-7b-v1.5
-output_dir="${1:-./checkpoints}"
+model_base=/cxr-report/model/vicuna-7b-v1.5
+output_dir="${1:-/cxr-report/lora_output}"
 
-# PROJECTOR="/PATH_TO/mm_projector.bin" # generated using pretrain.sh
+PROJECTOR="/cxr-report/pre_train_output/rad-dino-pt-1e-1e-3-20260415164745/mm_projector.bin" # generated using pretrain.sh
 vision_tower="rad-dino"
-vision_tower_config="dev/dinov2"
-vision_tower_checkpoint="dev/backbone_compatible.safetensors"
+vision_tower_config="/cxr-report/model/rad-dino/dinov2"
+vision_tower_checkpoint="/cxr-report/model/rad-dino/backbone_compatible.safetensors"
 ################## VICUNA ##################
 
 
 ################## Data ##################
-# data_path=/PATH_TO/physionet.org/files/llava-rad-mimic-cxr-annotation/1.0.0/chat_train_MIMIC_CXR_all_gpt4extract_rulebased_v1.json
+data_path=/cxr-report/json_files/train.json
 loader="mimic_train_findings"
-# image_folder=/PATH_TO/physionet.org/files/mimic-cxr-jpg/2.0.0/files
+image_folder=/cxr-report/dataset
 ################## Data ##################
 
 ################## Run name ##################
@@ -26,13 +28,14 @@ epoch="${2:-3}"
 bsz="${3:-16}"
 lr="1e-4"
 schedule="lora-${epoch}e"
-export run_name="${vision_tower}-${schedule}-${lr}-$(date +%Y%m%d%H%M%S)"
+export run_name="${vision_tower}-${schedule}-${lr}-${bsz}-${version}"
+export WANDB_RESUME="allow"
 echo $run_name > run_name
 ################## Run name ##################
 
 
 # Batch size is set for 4-GPU machines.
-WANDB_PROJECT="llava" WANDB_RUN_ID="llava-ft-$(date +%Y%m%d%H%M%S)" WANDB_RUN_GROUP=fine-tune \
+WANDB_PROJECT="llava" WANDB_RUN_ID="llava-ft-${vision_tower}-${schedule}-${lr}-${bsz}-${version}" WANDB_RUN_GROUP=fine-tune \
     deepspeed llava/train/train_mem.py \
     --deepspeed ./scripts/zero2.json \
     --lora_enable True \
@@ -55,16 +58,16 @@ WANDB_PROJECT="llava" WANDB_RUN_ID="llava-ft-$(date +%Y%m%d%H%M%S)" WANDB_RUN_GR
     --num_train_epochs ${epoch} \
     --per_device_train_batch_size ${bsz} \
     --per_device_eval_batch_size 4 \
-    --gradient_accumulation_steps 1 \
+    --gradient_accumulation_steps 4 \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
-    --save_steps 50000 \
-    --save_total_limit 1 \
+    --save_steps 100 \
+    --save_total_limit 100 \
     --learning_rate ${lr} \
     --weight_decay 0. \
     --warmup_ratio 0.03 \
     --lr_scheduler_type "cosine" \
-    --logging_steps 1 \
+    --logging_steps 18 \
     --tf32 True \
     --model_max_length 2048 \
     --gradient_checkpointing True \
