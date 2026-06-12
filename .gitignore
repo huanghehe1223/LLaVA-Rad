@@ -37,3 +37,7 @@ dev
 models/vicuna-7b-v1.5
 models/llava-rad
 models/rad-dino
+models/class_segment/best_checkpoint.pt
+
+# cache
+**/.cache

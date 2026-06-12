@@ -6,3 +6,9 @@ mkdir models/rad-dino
 cd models/rad-dino
 git clone https://github.com/facebookresearch/dinov2.git
 wget https://huggingface.co/microsoft/rad-dino/resolve/main/model.safetensors
+
+# llava-Rad
+download_llavarad.py
+
+# segment
+download_segment.py
