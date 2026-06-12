@@ -35,3 +35,5 @@ dev
 
 # models
 models/vicuna-7b-v1.5
+models/llava-rad
+models/rad-dino

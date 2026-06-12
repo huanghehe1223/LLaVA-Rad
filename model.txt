@@ -1,1 +1,8 @@
 # vicuna-v1.5-7b
+download_llm.py
+
+# rad-dino
+mkdir models/rad-dino
+cd models/rad-dino
+git clone https://github.com/facebookresearch/dinov2.git
+wget https://huggingface.co/microsoft/rad-dino/resolve/main/model.safetensors
