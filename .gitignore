@@ -32,3 +32,6 @@ ckpts*
 
 # dev
 dev
+
+# models
+models/vicuna-7b-v1.5

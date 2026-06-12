@@ -1,0 +1,6 @@
+pip install --upgrade pip setuptools wheel
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 \
+  --index-url https://download.pytorch.org/whl/cu121
+pip install -e /kaggle/working/LLaVA-Rad
+pip install packaging ninja
+pip install flash-attn==2.7.2.post1 --no-build-isolation

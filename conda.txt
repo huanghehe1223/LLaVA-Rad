@@ -1,0 +1,10 @@
+cd ~
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+bash Miniforge3-Linux-x86_64.sh
+按 Enter 阅读协议
+输入 yes
+安装路径默认即可，按 Enter
+最后问 Do you wish to update your shell profile... 输入 yes
+source ~/.bashrc
+conda create -n llava-rad python=3.10 -y
+conda activate llava-rad
