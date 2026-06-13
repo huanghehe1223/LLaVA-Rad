@@ -41,3 +41,6 @@ models/class_segment/best_checkpoint.pt
 
 # cache
 **/.cache
+
+# web
+/web
